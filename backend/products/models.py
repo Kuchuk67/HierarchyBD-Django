@@ -16,7 +16,7 @@ class Products(models.Model):
         verbose_name="модель товара"
     )
     release_date = models.DateTimeField(
-        verbose_name="дата выхода на рынок"б
-        null=False,
+        verbose_name="дата выхода на рынок",
+
         blank=False,
         )
