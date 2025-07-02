@@ -6,8 +6,9 @@ class Counterparties(models.Model):
         max_length=50,
         null=False,
         blank=False,
-        verbose_name="Название продукта",
-        help_text="Название продукта",
+        verbose_name="Название контрагента",
+        help_text="Название контрагента",
+        unique=False,
     )
     STATUS_CHOICES = [
         ("factory", "Завод"),
@@ -21,7 +22,7 @@ class Counterparties(models.Model):
         verbose_name="Иерархия"
     )
     email = models.CharField(max_length=150,
-        unique=False,
+        unique=True,
         verbose_name="e-mail"
     )
     country = models.CharField(max_length=50,
@@ -42,28 +43,4 @@ class Counterparties(models.Model):
     )
     active = models.BooleanField(
         verbose_name="контрагент активен"
-    )
-
-    place = models.CharField(
-        max_length=50,
-        default=None,
-        null=True,
-        blank=True,
-        verbose_name="место выполнения привычки",
-        help_text="место, в котором необходимо выполнять привычку",
-    )
-
-    time_action = models.TimeField(
-        default=None,
-        null=True,
-        blank=True,
-        verbose_name="время выполнения привычки",
-        help_text="время, когда необходимо выполнять привычку",
-    )
-    period = models.CharField(
-        max_length=50,
-        default="1,2,3,4,5,6,7",
-        blank=True,
-        verbose_name="день недели, когда необходимо выполнять привычку",
-        help_text="дни недели через запятую 1,2,3,4,5,6,7",
     )
