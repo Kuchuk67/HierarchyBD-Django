@@ -16,12 +16,38 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+from config.settings import API_VERSION
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Documentation",
+        default_version="v1",
+        description="API документация к проекту",
+        terms_of_service="",
+        contact=openapi.Contact(email=""),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('partnerships.urls', namespace='partnerships')),
-    path('', include('products.urls', namespace='products')),
-    path('', include('counterparties.urls', namespace='counterparties')),
+    path(API_VERSION + "schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        API_VERSION + "swagger/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(API_VERSION, include("users.urls", namespace="users")),
+   # path(API_VERSION, include('partnerships.urls', namespace='partnerships')),
+   # path(API_VERSION, include('products.urls', namespace='products')),
+   # path(API_VERSION, include('counterparties.urls', namespace='counterparties')),
 
 ]
