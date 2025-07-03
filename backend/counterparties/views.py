@@ -1,6 +1,3 @@
-from rest_framework.generics import ListAPIView
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from counterparties.models import Counterparties
 from counterparties.serializer import CounterpartiesSerializer
@@ -17,13 +14,8 @@ class CounterpartiesViewsSet(ModelViewSet):
     """
     Представление для контрагентов
     """
-    #permission_required = "counterparties.API_access"
-    # pagination_class = EducationPagination
     queryset = Counterparties.objects.all()
     serializer_class = CounterpartiesSerializer
-    #permission_classes = [IsAuthenticated, HasAPIGroupPermission]
-    
-
 
     def destroy(self, request, *args, **kwargs):
         """
@@ -31,12 +23,14 @@ class CounterpartiesViewsSet(ModelViewSet):
         """
         instance = self.get_object()
         if not instance:
-            return Response({'error': 'Not found the Counterparties'}, status=status.HTTP_404_NOT_FOUND)
-
+            return Response({'error': 'Not found the Counterparties'},
+                            status=status.HTTP_404_NOT_FOUND
+                            )
         instance.active = False
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     def list(self, request, deactive = False, *args, **kwargs):
         """
@@ -52,16 +46,28 @@ class CounterpartiesViewsSet(ModelViewSet):
         serializer = self.get_serializer(parties, many=True)
         return Response(serializer.data)
     
+
     # Декоратор для отображения Swagger параметров пагинации
     @extend_schema(
         parameters=[
-            OpenApiParameter(name='limit', type=int, location=OpenApiParameter.QUERY, description='Limit items'),
-            OpenApiParameter(name='offset', type=int, location=OpenApiParameter.QUERY, description='Offset'),
+            OpenApiParameter(name='limit', 
+                             type=int, 
+                             location=OpenApiParameter.QUERY, 
+                             description='Limit items'
+                             ),
+            OpenApiParameter(name='offset', 
+                             type=int, 
+                             location=OpenApiParameter.QUERY, 
+                             description='Offset'
+                             ),
         ],
         responses=CounterpartiesSerializer(many=True),
     )
     @action(detail=False, methods=["get"], url_path="deactive")
     def deactive(self, request):
+        """
+        Выводит список не активных (удаленных) контрагентов
+        """
         queryset = self.get_queryset().filter(active=False)
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -70,7 +76,3 @@ class CounterpartiesViewsSet(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
-
