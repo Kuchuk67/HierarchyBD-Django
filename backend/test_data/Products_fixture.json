@@ -1,0 +1,182 @@
+[
+{
+    "model": "products.products",
+    "pk": 1,
+    "fields": {
+        "name_product": "Планшет",
+        "model_product": "1245-14\"",
+        "release_date": "2024-02-03"
+    }
+},
+    {
+        "model": "products.products",
+        "pk": 2,
+        "fields": {
+            "name_product": "Смартфон",
+            "model_product": "Galaxy S24",
+            "release_date": "2024-01-15"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 3,
+        "fields": {
+            "name_product": "Ноутбук",
+            "model_product": "ThinkPad X1",
+            "release_date": "2023-11-10"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 4,
+        "fields": {
+            "name_product": "Монитор",
+            "model_product": "Dell U2723QE",
+            "release_date": "2023-06-01"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 5,
+        "fields": {
+            "name_product": "Наушники",
+            "model_product": "Sony WH-1000XM5",
+            "release_date": "2024-03-20"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 6,
+        "fields": {
+            "name_product": "Умные часы",
+            "model_product": "Apple Watch Series 9",
+            "release_date": "2023-09-12"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 7,
+        "fields": {
+            "name_product": "Телевизор",
+            "model_product": "Samsung QN90B",
+            "release_date": "2022-10-01"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 8,
+        "fields": {
+            "name_product": "Камера",
+            "model_product": "Canon EOS R8",
+            "release_date": "2024-04-04"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 9,
+        "fields": {
+            "name_product": "Видеокарта",
+            "model_product": "NVIDIA RTX 4080",
+            "release_date": "2023-02-15"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 10,
+        "fields": {
+            "name_product": "Игровая консоль",
+            "model_product": "PlayStation 5",
+            "release_date": "2020-11-12"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 11,
+        "fields": {
+            "name_product": "Смарт-колонка",
+            "model_product": "Yandex Station Max",
+            "release_date": "2023-05-30"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 12,
+        "fields": {
+            "name_product": "Графический планшет",
+            "model_product": "Wacom Intuos Pro M",
+            "release_date": "2023-07-20"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 13,
+        "fields": {
+            "name_product": "Проектор",
+            "model_product": "Epson EH-TW7100",
+            "release_date": "2022-09-18"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 14,
+        "fields": {
+            "name_product": "МФУ принтер",
+            "model_product": "HP LaserJet M428fdw",
+            "release_date": "2023-01-22"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 15,
+        "fields": {
+            "name_product": "Сетевой накопитель",
+            "model_product": "Synology DS920+",
+            "release_date": "2023-11-11"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 16,
+        "fields": {
+            "name_product": "Веб-камера",
+            "model_product": "Logitech Brio 4K",
+            "release_date": "2022-03-05"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 17,
+        "fields": {
+            "name_product": "Гарнитура",
+            "model_product": "Jabra Evolve2 65",
+            "release_date": "2023-08-08"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 18,
+        "fields": {
+            "name_product": "SSD накопитель",
+            "model_product": "Samsung 980 PRO 1TB",
+            "release_date": "2021-12-10"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 19,
+        "fields": {
+            "name_product": "Маршрутизатор",
+            "model_product": "ASUS RT-AX88U",
+            "release_date": "2022-07-01"
+        }
+    },
+    {
+        "model": "products.products",
+        "pk": 20,
+        "fields": {
+            "name_product": "Сканер",
+            "model_product": "Fujitsu ScanSnap iX1600",
+            "release_date": "2023-04-14"
+        }
+    }
+]
