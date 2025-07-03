@@ -4,6 +4,9 @@ from products.models import Products
 # from habit_tracker.validators import (    HabitNiceValid)
 
 class ProductsSerializer(ModelSerializer):
+    """
+    Сериализатор модели продукция
+    """
     class Meta:
         model = Products
         fields = [

@@ -14,10 +14,8 @@ from rest_framework import status
 
 class ProductsViewsSet(ModelViewSet):
     """
-    Представление для контрагентов
+    Представление для продукции
     """
-    #permission_required = "counterparties.API_access"
-    # pagination_class = EducationPagination
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
     permission_classes = [IsAuthenticated,] #HasAPIGroupPermission]
