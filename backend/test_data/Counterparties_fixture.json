@@ -1,0 +1,212 @@
+[
+{
+    "model": "counterparties.counterparties",
+    "pk": 1,
+    "fields": {
+        "name": "ЗАО \"ТехноПрибор\"",
+        "that_is_type": "factory",
+        "email": "tehnopribor@mail.com",
+        "country": "Беларуссия",
+        "city": "Минск",
+        "street": "Ленина",
+        "house_number": "113",
+        "active": true
+    }
+},
+{
+    "model": "counterparties.counterparties",
+    "pk": 2,
+    "fields": {
+        "name": "АО \"Аналит\"",
+        "that_is_type": "factory",
+        "email": "analit@mail.com",
+        "country": "Россия",
+        "city": "Подольск",
+        "street": "Румянцева",
+        "house_number": "1А",
+        "active": true
+    }
+},
+{
+    "model": "counterparties.counterparties",
+    "pk": 3,
+    "fields": {
+        "name": "ООО \"Тендер\"",
+        "that_is_type": "retail",
+        "email": "tented@mail.com",
+        "country": "Россия",
+        "city": "Урюпинск",
+        "street": "Ленина",
+        "house_number": "3",
+        "active": true
+    }
+},
+{
+    "model": "counterparties.counterparties",
+    "pk": 4,
+    "fields": {
+        "name": "Иванов Сергей Петрович",
+        "that_is_type": "PE",
+        "email": "ivanov@mail.com",
+        "country": "Россия",
+        "city": "Москва",
+        "street": "Ленинградское шоссе",
+        "house_number": "57",
+        "active": true
+    }
+},
+{
+    "model": "counterparties.counterparties",
+    "pk": 5,
+    "fields": {
+        "name": "ООО ПромТех",
+        "that_is_type": "factory",
+        "email": "contact@promtech.ru",
+        "country": "Россия",
+        "city": "Москва",
+        "street": "Ленинградский проспект",
+        "house_number": "10",
+        "active": true
+    }
+},
+{
+    "model": "counterparties.counterparties",
+    "pk": 6,
+    "fields": {
+        "name": "ИП Иванов Петр",
+        "that_is_type": "PE",
+        "email": "ivanovp@pemail.ru",
+        "country": "Россия",
+        "city": "Казань",
+        "street": "Баумана",
+        "house_number": "5",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 7,
+    "fields": {
+        "name": "ЗАО РитейлМаркет",
+        "that_is_type": "retail",
+        "email": "info@retailmarket.ru",
+        "country": "Россия",
+        "city": "Санкт-Петербург",
+        "street": "Невский проспект",
+        "house_number": "21",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 8,
+    "fields": {
+        "name": "Factory Solutions Ltd",
+        "that_is_type": "factory",
+        "email": "contact@factsol.uk",
+        "country": "Великобритания",
+        "city": "Лондон",
+        "street": "King's Road",
+        "house_number": "42A",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 9,
+    "fields": {
+        "name": "Retail Hub GmbH",
+        "that_is_type": "retail",
+        "email": "info@retailhub.de",
+        "country": "Германия",
+        "city": "Берлин",
+        "street": "Friedrichstrasse",
+        "house_number": "78",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 10,
+    "fields": {
+        "name": "ИП Смирнова Анна",
+        "that_is_type": "PE",
+        "email": "asmirnova@pe.ru",
+        "country": "Россия",
+        "city": "Екатеринбург",
+        "street": "8 Марта",
+        "house_number": "15",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 11,
+    "fields": {
+        "name": "UkrProm LLC",
+        "that_is_type": "factory",
+        "email": "contact@ukrprom.ua",
+        "country": "Украина",
+        "city": "Киев",
+        "street": "Хрещатик",
+        "house_number": "3",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 12,
+    "fields": {
+        "name": "ИП Ткаченко Юлия",
+        "that_is_type": "PE",
+        "email": "tkachenko@pe.ua",
+        "country": "Украина",
+        "city": "Одесса",
+        "street": "Дерибасовская",
+        "house_number": "6",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 13,
+    "fields": {
+        "name": "Retail Co.",
+        "that_is_type": "retail",
+        "email": "info@retailco.com",
+        "country": "США",
+        "city": "Нью-Йорк",
+        "street": "Broadway",
+        "house_number": "100",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 14,
+    "fields": {
+        "name": "Smart Factory S.A.",
+        "that_is_type": "factory",
+        "email": "contact@smartfactory.pl",
+        "country": "Польша",
+        "city": "Варшава",
+        "street": "Nowy Świat",
+        "house_number": "12",
+        "active": true
+    }
+},
+    {
+    "model": "counterparties.counterparties",
+    "pk": 14,
+    "fields": {
+        "name": "Рога и копыта",
+        "that_is_type": "PE",
+        "email": "4535@fg.pl",
+        "country": "dfdf",
+        "city": "Варшdfdfава",
+        "street": "Noiat",
+        "house_number": "12",
+        "active": false
+    }
+}
+]
