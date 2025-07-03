@@ -10,7 +10,7 @@ from getpass import getpass
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-        CustomUser.objects.all().delete()
+        #CustomUser.objects.all().delete()
 
         # Создаем новую группу
         new_group, created = Group.objects.get_or_create(name="API_access")
@@ -53,6 +53,7 @@ class Command(BaseCommand):
                 user.is_superuser = True
                 user.groups.add(new_group)
                 user.save()
+                print('Admin added')
             else:
                 print('Рasswords do not match')
         else:

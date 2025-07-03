@@ -23,4 +23,46 @@ class CounterpartiesViewsSet(ModelViewSet):
     permission_classes = [IsAuthenticated, HasAPIGroupPermission]
 
 
+    def destroy(self, request, *args, **kwargs):
+        """
+        Не будем удалять запись, помечаем не активной 
+        """
+        instance = self.get_object()
+        if not instance:
+            return Response({'error': 'Not found the Counterparties'}, status=status.HTTP_404_NOT_FOUND)
+
+        instance.active = False
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+        """
+        При выводе списка отображаем только активных контрагентов
+        """
+        parties = Counterparties.objects.filter(active=True).order_by('name')
+
+        page = self.paginate_queryset(parties)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(parties, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
+    def all(self, request):
+        """
+        Дополнительный list
+        При выводе списка отображаем и неактивных контрагентов
+        """
+        parties = Counterparties.objects.all().order_by('name')
+
+        page = self.paginate_queryset(parties)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(parties, many=True)
+        return Response(serializer.data)
 
