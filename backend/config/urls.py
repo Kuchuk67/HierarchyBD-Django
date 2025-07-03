@@ -46,8 +46,8 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path(API_VERSION, include("users.urls", namespace="users")),
-   # path(API_VERSION, include('partnerships.urls', namespace='partnerships')),
+   # path(API_VERSION, include('partnerships.urls', namespace='part_sh')),
    # path(API_VERSION, include('products.urls', namespace='products')),
-   # path(API_VERSION, include('counterparties.urls', namespace='counterparties')),
+   path(API_VERSION, include('counterparties.urls', namespace='partner')),
 
 ]
