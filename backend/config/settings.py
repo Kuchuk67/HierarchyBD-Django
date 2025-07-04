@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'drf_spectacular',
     'users',
-    #'partnerships',
+    'partnerships',
     'counterparties',
     'products'
 ]
