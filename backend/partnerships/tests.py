@@ -1,7 +1,7 @@
 from rest_framework import status
 
 
-def test_counterparties_list(api_client, 
+def test_partnerships_list(api_client, 
                                 create_test_data
                                 ):
     """
@@ -12,7 +12,7 @@ def test_counterparties_list(api_client,
     assert len(response.data['results']) == 2
 
 
-def test_counterparties_get_and_delete(api_client, 
+def test_partnerships_get_and_delete(api_client, 
                                 create_test_data
                                 ):
     """
@@ -33,7 +33,7 @@ def test_counterparties_get_and_delete(api_client,
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
-def test_counterparties_created_and_patch(api_client, 
+def test_partnerships_created_and_patch(api_client, 
                                 create_test_data
                                 ):
     """
@@ -52,7 +52,8 @@ def test_counterparties_created_and_patch(api_client,
 
     data_w = dict(
         {
-            'person': person_id_2
+            'person': person_id_2,
+            'debt_rub': 15050
         }
     )
     response = api_client.post(
@@ -64,7 +65,7 @@ def test_counterparties_created_and_patch(api_client,
 
     data_2 = dict(
         {
-            'debt': 2147483647,
+            'debt_rub': 2147487,
             'person': person_id_1,
             'supplier': response.data["id"],
             'products': [product_id_1, product_id_2]

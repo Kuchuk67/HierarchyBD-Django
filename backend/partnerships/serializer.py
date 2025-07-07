@@ -6,6 +6,9 @@ from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
 # class ProductSerializer
 from decimal import Decimal
+#from validators import SupplierValidator
+from partnerships import validators
+
 
 class MoneyField(serializers.Field):
     """
@@ -79,8 +82,10 @@ class PartnershipsListSerializer(ModelSerializer):
 
 class PartnershipsSerializer(ModelSerializer):
     debt_rub = MoneyField(source='debt')
+    
     class Meta:
         model = Partnerships
+        
         fields = [
             "id",
             "debt_rub",
@@ -89,7 +94,30 @@ class PartnershipsSerializer(ModelSerializer):
             "supplier",
             "products"
          ]
-        
+    
+    def validate(self, data):
+        supplier = data.get("supplier")
+        products = data.get("products", [])
+        debt = data.get("debt_rub")
+
+        if supplier is None and (len(products)) > 0:
+            raise serializers.ValidationError({
+                "supplier": "Укажите поставщика, если задан продукт."
+            })
+
+        if supplier is None and (not debt  or debt > 0):
+            raise serializers.ValidationError({
+                "debt_rub": "If there is no supplier - no debt"
+            })
+        return data
+    '''def validate_debt_rub(self, value):  
+        """
+        если нет поставщика - нет продуктов
+        """
+        if not self.initial_data["supplier"] and self.initial_data["debt_rub"]>0:  
+            raise serializers.ValidationError("If there is no supplier - no debt")  
+        return value  '''
+    
 
 class PartnershipsUpdateSerializer(ModelSerializer):
 
@@ -99,3 +127,13 @@ class PartnershipsUpdateSerializer(ModelSerializer):
             "supplier",
             "products"
          ]
+    def validate(self, data):
+        supplier = data.get("supplier")
+        products = data.get("products")
+
+        if supplier is None and (not products  or len(products)) > 0:
+            raise serializers.ValidationError({
+                "supplier": "Укажите поставщика, если задан продукт."
+            })
+        return data
+    
