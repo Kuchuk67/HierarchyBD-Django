@@ -128,10 +128,13 @@ class PartnershipsUpdateSerializer(ModelSerializer):
             "products"
          ]
     def validate(self, data):
-        supplier = data.get("supplier")
-        products = data.get("products")
+        # Новое значение supplier (может быть None или не передано)
+        new_supplier = data.get("supplier", self.instance.supplier if self.instance else None)
+        # Новое значение products (может быть пустым или не передано)
+        new_products = data.get("products", self.instance.products.all() if self.instance else [])
+        print("******", new_supplier, new_products)
 
-        if supplier is None and (not products  or len(products)) > 0:
+        if new_supplier is None and len(new_products) > 0:
             raise serializers.ValidationError({
                 "supplier": "Укажите поставщика, если задан продукт."
             })
