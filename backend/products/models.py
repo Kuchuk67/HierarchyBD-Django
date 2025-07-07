@@ -20,3 +20,6 @@ class Products(models.Model):
 
         blank=False,
         )
+    
+    def __str__(self):
+        return f"{self.name_product}/{self.model_product}"

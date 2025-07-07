@@ -5,7 +5,26 @@ from products.serializer import ProductsSerializer
 from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
 # class ProductSerializer
+from decimal import Decimal
 
+class MoneyField(serializers.Field):
+    """
+    Поле для отображения цены, хранимой в копейках, в рублях.
+    """
+
+    def to_representation(self, value):
+        # Представление: копейки → рубли (Decimal for precision)
+        return (Decimal(value) / 100).quantize(Decimal('0.01'))
+
+    def to_internal_value(self, data):
+        # При приёме данных (если поддерживаете запись)
+        # ожидаем рубли, конвертим в копейки
+        try:
+            amount = Decimal(data)
+        except (TypeError, ValueError):
+            raise serializers.ValidationError("Некорректная цена")
+        return int((amount * 100).quantize(Decimal('1')))  
+    
 
 class CounterpartySerializer(ModelSerializer):
     class Meta:
@@ -26,9 +45,7 @@ class CounterpartySerializer(ModelSerializer):
 class PartnershipsListSerializer(ModelSerializer):
 
     products = ProductsSerializer(many=True, read_only=True)
-
     person = CounterpartySerializer(read_only=True)
-    
     supplier = SerializerMethodField()
 
     def get_supplier(self, obj):
@@ -46,11 +63,13 @@ class PartnershipsListSerializer(ModelSerializer):
             }
         return None
     
+    debt_rub = MoneyField(source='debt')
+
     class Meta:
         model = Partnerships
         fields = [
             "id",
-            "debt",
+            "debt_rub",
             "data_create",
             "person",
             "supplier",
@@ -59,12 +78,12 @@ class PartnershipsListSerializer(ModelSerializer):
         
 
 class PartnershipsSerializer(ModelSerializer):
-
+    debt_rub = MoneyField(source='debt')
     class Meta:
         model = Partnerships
         fields = [
             "id",
-            "debt",
+            "debt_rub",
             "data_create",
             "person",
             "supplier",

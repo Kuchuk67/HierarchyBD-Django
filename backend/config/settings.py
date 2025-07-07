@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
-
+import sys
 
 # Загрузка переменных из .env-файла
 load_dotenv()
@@ -91,6 +91,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -101,6 +102,14 @@ DATABASES = {
         'PORT': SQL_PORT,
     }
 }
+
+if "test" in sys.argv or "pytest" in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
+    }
 
 
 # Password validation
@@ -182,3 +191,5 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
+
+SWAGGER_USE_COMPAT_RENDERERS = False

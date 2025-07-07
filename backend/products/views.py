@@ -24,4 +24,4 @@ class ProductsViewsSet(ListModelMixin,
     """
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
-    #permission_classes = [IsAuthenticated,] #HasAPIGroupPermission]
+    

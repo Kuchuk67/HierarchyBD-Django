@@ -1,3 +1,93 @@
-from django.test import TestCase
+from rest_framework import status
 
-# Create your tests here.
+
+def test_counterparties_list(api_client, 
+                                create_test_data
+                                ):
+    """
+    Тест - выводит заказы
+    """
+    response = api_client.get("/api/v1/orders")
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data['results']) == 2
+
+
+def test_counterparties_get_and_delete(api_client, 
+                                create_test_data
+                                ):
+    """
+    Тест - Удаляет заказы
+    """
+    response = api_client.get("/api/v1/orders")
+    id_1 = response.data['results'][0]['id']
+    id_2 = response.data['results'][1]['id']
+        
+    response = api_client.get(f"/api/v1/orders/{id_1}")
+    assert response.status_code == status.HTTP_200_OK
+
+    response = api_client.delete(f"/api/v1/orders/{id_1}")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    response = api_client.delete(f"/api/v1/orders/{id_2}")
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+    response = api_client.delete(f"/api/v1/orders/{id_1}")
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+
+def test_counterparties_created_and_patch(api_client, 
+                                create_test_data
+                                ):
+    """
+    Тест - создает заказы
+    """
+    response = api_client.get("/api/v1/products")
+    assert response.status_code == status.HTTP_200_OK
+    product_id_1 = response.data['results'][0]['id']
+    product_id_2 = response.data['results'][1]['id']
+
+    response = api_client.get("/api/v1/partner")
+    assert response.status_code == status.HTTP_200_OK
+    
+    person_id_1 = response.data['results'][0]['id']
+    person_id_2 = response.data['results'][1]['id']
+
+    data_w = dict(
+        {
+            'person': person_id_2
+        }
+    )
+    response = api_client.post(
+        path="/api/v1/orders",
+        data=data_w,
+        format="json"
+    )
+    assert response.status_code == status.HTTP_201_CREATED
+
+    data_2 = dict(
+        {
+            'debt': 2147483647,
+            'person': person_id_1,
+            'supplier': response.data["id"],
+            'products': [product_id_1, product_id_2]
+
+        }
+    )
+    response = api_client.post(path="/api/v1/orders",
+        data=data_2,
+        format="json"
+    )
+    assert response.status_code == status.HTTP_201_CREATED
+
+    data_3 = dict(
+        {
+            'products': [product_id_1]
+        }
+    )
+    response = api_client.patch(
+        path=f"/api/v1/orders/{response.data["id"]}",
+        data=data_3,
+        format="json"
+    )
+    assert response.status_code == status.HTTP_200_OK
+
+
+

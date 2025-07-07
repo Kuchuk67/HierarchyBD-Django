@@ -1,12 +1,10 @@
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from counterparties.models import Counterparties
 from counterparties.serializer import CounterpartiesSerializer
-#from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework import status
-#from users.permissions import HasAPIGroupPermission
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from partnerships.models import Partnerships
 from partnerships.serializer import(
@@ -23,65 +21,43 @@ from rest_framework.mixins import (
     DestroyModelMixin
     )
 from rest_framework.pagination import PageNumberPagination
+from django.db.models.deletion import RestrictedError
 
 
-
-# Create your views here.
-
-
-class PartnershipsViewsSet(ListModelMixin, CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin, 
-                           GenericViewSet):
+class PartnershipsViewsSet(
+    ListModelMixin, 
+    CreateModelMixin, 
+    UpdateModelMixin, 
+    RetrieveModelMixin, 
+    DestroyModelMixin, 
+    GenericViewSet
+    ):
     """
     Представление для продукции
     """
+    def destroy(self, request, *args, **kwargs):
+        """
+        Обработка ошибки удавения связанной записи
+        или удаляем запись
+        """
+        instance = self.get_object()
+        try:
+            self.perform_destroy(instance)
+        except RestrictedError as e:
+            return Response(
+                {"error": "The object cannot be deleted because other records is linked to it."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     queryset = Partnerships.objects.all()
-    #serializer_class = PartnershipsListSerializer
+
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        
+        if self.action in ['list', 'retrieve']:
             return PartnershipsListSerializer
-        elif self.action == 'retrieve':
-            return PartnershipsSerializer
-        elif self.action == 'create':
-            return PartnershipsSerializer
         elif self.action in ['update', 'partial_update']:
             return PartnershipsUpdateSerializer
         return PartnershipsSerializer
     
-'''    def list(self, request, *args, **kwargs):
-        # Кастомная логика для списка
-        queryset = Partnerships.objects.all()
-        serializer = PartnershipsListSerializer(queryset, many=True, context=self.get_serializer_context())
-        return super().list(request, *args, **kwargs)
-    
-    
-    def update(self, request, *args, **kwargs):
-        queryset = Partnerships.objects.all()
-        serializer = PartnershipsUpdateSerializer(queryset, many=True, context=self.get_serializer_context())
-        return super().update(request, *args, **kwargs)'''
-
-# class PartnershipsViewsSet(ListModelMixin, GenericViewSet):
-"""
-    Представление для иерархической сети заказов
-    """
-
-
-''' def list(self, request) -> Response:
-        queryset = Partnerships.objects.all()
-        serializer = PartnershipsListSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, request):
-        pass
-
-    def retrieve(self, request, pk=None):
-        pass
-
-    def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
-
-    def destroy(self, request, pk=None):
-        pass'''

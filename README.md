@@ -8,7 +8,7 @@ python manage.py migrate
 
 python manage.py loaddata test_data/Counterparties_fixture.json
 python manage.py loaddata test_data/Products_fixture.json
-
+python manage.py loaddata test_data/Partnerships_fixture.json
 
   python -Xutf8 manage.py dumpdata products.Products --output test_data/Products_fixture.json --indent 4
 python -Xutf8 manage.py dumpdata partnerships.Partnerships --output test_data/Partnerships_fixture.json --indent 4

@@ -44,3 +44,6 @@ class Counterparties(models.Model):
     active = models.BooleanField(
         verbose_name="контрагент активен"
     )
+
+    def __str__(self):
+        return self.name
