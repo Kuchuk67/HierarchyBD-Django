@@ -1,6 +1,10 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from partnerships.models import Partnerships
 from counterparties.models import Counterparties
+from products.serializer import ProductsSerializer
+from rest_framework import serializers
+from drf_yasg.utils import swagger_serializer_method
+# class ProductSerializer
 
 
 class CounterpartySerializer(ModelSerializer):
@@ -21,7 +25,10 @@ class CounterpartySerializer(ModelSerializer):
 
 class PartnershipsListSerializer(ModelSerializer):
 
+    products = ProductsSerializer(many=True, read_only=True)
+
     person = CounterpartySerializer(read_only=True)
+    
     supplier = SerializerMethodField()
 
     def get_supplier(self, obj):
@@ -47,6 +54,29 @@ class PartnershipsListSerializer(ModelSerializer):
             "data_create",
             "person",
             "supplier",
-            #"person_name",
-            #"supplier_name"
-        ]
+            "products"
+         ]
+        
+
+class PartnershipsSerializer(ModelSerializer):
+
+    class Meta:
+        model = Partnerships
+        fields = [
+            "id",
+            "debt",
+            "data_create",
+            "person",
+            "supplier",
+            "products"
+         ]
+        
+
+class PartnershipsUpdateSerializer(ModelSerializer):
+
+    class Meta:
+        model = Partnerships
+        fields = [
+            "supplier",
+            "products"
+         ]
