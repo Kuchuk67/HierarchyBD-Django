@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class CounterpartiesConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'counterparties'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "counterparties"

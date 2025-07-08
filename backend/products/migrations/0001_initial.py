@@ -7,17 +7,37 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Products',
+            name="Products",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name_product', models.CharField(help_text='Название товара', max_length=50, verbose_name='Название товара')),
-                ('model_product', models.CharField(max_length=100, verbose_name='модель товара')),
-                ('release_date', models.DateTimeField(verbose_name='дата выхода на рынок')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name_product",
+                    models.CharField(
+                        help_text="Название товара",
+                        max_length=50,
+                        verbose_name="Название товара",
+                    ),
+                ),
+                (
+                    "model_product",
+                    models.CharField(max_length=100, verbose_name="модель товара"),
+                ),
+                (
+                    "release_date",
+                    models.DateTimeField(verbose_name="дата выхода на рынок"),
+                ),
             ],
         ),
     ]

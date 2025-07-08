@@ -1,9 +1,9 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework import routers
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from products.views import ProductsViewsSet
 
+from products.views import ProductsViewsSet
 
 router = routers.SimpleRouter(
     trailing_slash=False,

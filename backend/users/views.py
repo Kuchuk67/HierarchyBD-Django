@@ -1,9 +1,10 @@
 from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAdminUser
 from rest_framework.viewsets import ModelViewSet
+
+from config.permissions import OwnerPermissionsClass
 from users.models import CustomUser
 from users.serializer import UserCreateSerializer, UserSerializer
-from config.permissions import OwnerPermissionsClass
-from rest_framework.permissions import IsAdminUser
 
 
 class UserViewSet(ModelViewSet):

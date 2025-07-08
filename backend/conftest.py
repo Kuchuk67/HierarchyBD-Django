@@ -1,9 +1,11 @@
 import pytest
 from rest_framework.test import APIClient
-from users.models import CustomUser
-from products.models import Products
+
 from counterparties.models import Counterparties
 from partnerships.models import Partnerships
+from products.models import Products
+from users.models import CustomUser
+
 
 @pytest.fixture
 def admin_user(db):
@@ -17,11 +19,13 @@ def admin_user(db):
 
     return user
 
+
 @pytest.fixture
 def api_client(admin_user):
     client = APIClient()
     client.force_authenticate(user=admin_user)
     return client
+
 
 @pytest.fixture
 def create_test_data(api_client):
@@ -31,12 +35,12 @@ def create_test_data(api_client):
     product_1 = Products.objects.create(
         name_product="Продукт 1",
         model_product="Модель продукта 1",
-        release_date="2025-07-07"
+        release_date="2025-07-07",
     )
     product_2 = Products.objects.create(
         name_product="Продукт 1",
         model_product="Модель продукта 1",
-        release_date="2025-07-07"
+        release_date="2025-07-07",
     )
     partner_1 = Counterparties.objects.create(
         name="Smart Factory S.A.",
@@ -56,7 +60,7 @@ def create_test_data(api_client):
         city="Варшdfdfава",
         street="ffff",
         house_number=12,
-        active=False
+        active=False,
     )
     partner_3 = Counterparties.objects.create(
         name="Smadddactory S.A.",
@@ -68,11 +72,11 @@ def create_test_data(api_client):
         house_number=12,
         active=True,
     )
-    
+
     partnerships_1 = Partnerships.objects.create(
         person=partner_1,
     )
-    
+
     partnerships_2 = Partnerships.objects.create(
         person=partner_2,
         supplier=partnerships_1,
@@ -81,53 +85,60 @@ def create_test_data(api_client):
     partnerships_2.products.set([product_1, product_2])
 
 
-    
-
 @pytest.fixture
 def product_one():
-    return dict({
-        "name_product": "Продукт 2",
-        "model_product": "Модель продукта 2",
-        "release_date": "2024-07-07"
-    })
+    return dict(
+        {
+            "name_product": "Продукт 2",
+            "model_product": "Модель продукта 2",
+            "release_date": "2024-07-07",
+        }
+    )
+
 
 @pytest.fixture
 def product_patch():
-    return dict({
-        'name_product': 'Продукт изменен'
-    })
+    return dict({"name_product": "Продукт изменен"})
+
 
 @pytest.fixture
 def product_put():
-    return dict({
-        "name_product": "Продукт 11",
-        "model_product": "Модель продукта 11",
-        "release_date": "2025-07-07"
-    })
+    return dict(
+        {
+            "name_product": "Продукт 11",
+            "model_product": "Модель продукта 11",
+            "release_date": "2025-07-07",
+        }
+    )
 
 
 @pytest.fixture
 def counterparties_post():
-    return dict({
-        "name": "ЗАО РитейлМаркет",
-        "that_is_type": "retail",
-        "email": "info@retailmarket.ru",
-        "country": "Россия",
-        "city": "Санкт-Петербург",
-        "street": "Невский проспект",
-        "house_number": "21",
-        "active": True
-    })
+    return dict(
+        {
+            "name": "ЗАО РитейлМаркет",
+            "that_is_type": "retail",
+            "email": "info@retailmarket.ru",
+            "country": "Россия",
+            "city": "Санкт-Петербург",
+            "street": "Невский проспект",
+            "house_number": "21",
+            "active": True,
+        }
+    )
+
 
 @pytest.fixture
 def counterparties_put():
-    return dict({
-        "name": "ИП Иванов Петр",
-        "that_is_type": "PE",
-        "email": "ivanovp@pemail.ru",
-        "country": "Россия",
-        "city": "Казань",
-        "street": "Баумана",
-        "house_number": "5",
-        "active": True
-    })
+    return dict(
+        {
+            "name": "ИП Иванов Петр",
+            "that_is_type": "PE",
+            "email": "ivanovp@pemail.ru",
+            "country": "Россия",
+            "city": "Казань",
+            "street": "Баумана",
+            "house_number": "5",
+            "active": True,
+        }
+    )

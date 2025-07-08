@@ -7,5 +7,9 @@ from counterparties.models import Counterparties
 @admin.register(Counterparties)
 class Counterparties(admin.ModelAdmin):
     list_display = ("name", "that_is_type", "country", "city", "email")
-    list_filter = ("country", "city", "that_is_type",)
+    list_filter = (
+        "country",
+        "city",
+        "that_is_type",
+    )
     search_fields = ("name", "country", "city")

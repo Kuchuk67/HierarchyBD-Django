@@ -6,14 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('partnerships', '0007_alter_partnerships_products'),
-        ('products', '0002_alter_products_release_date'),
+        ("partnerships", "0007_alter_partnerships_products"),
+        ("products", "0002_alter_products_release_date"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='partnerships',
-            name='products',
-            field=models.ManyToManyField(blank=True, help_text='ID продукта: 1, 2 , 6', null=True, related_name='products', to='products.products', verbose_name='Список продуктов, ID продукта: 1, 2 , 6'),
+            model_name="partnerships",
+            name="products",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="ID продукта: 1, 2 , 6",
+                null=True,
+                related_name="products",
+                to="products.products",
+                verbose_name="Список продуктов, ID продукта: 1, 2 , 6",
+            ),
         ),
     ]

@@ -16,34 +16,16 @@ class Counterparties(models.Model):
         ("PE", "ИП"),
     ]
     that_is_type = models.CharField(
-        max_length=7,
-        choices=STATUS_CHOICES,
-        default="PE",
-        verbose_name="Иерархия"
+        max_length=7, choices=STATUS_CHOICES, default="PE", verbose_name="Иерархия"
     )
-    email = models.CharField(max_length=150,
-        unique=True,
-        verbose_name="e-mail"
+    email = models.CharField(max_length=150, unique=True, verbose_name="e-mail")
+    country = models.CharField(max_length=50, unique=False, verbose_name="страна")
+    city = models.CharField(max_length=50, unique=False, verbose_name="город")
+    street = models.CharField(max_length=50, unique=False, verbose_name="улица")
+    house_number = models.CharField(
+        max_length=10, unique=False, verbose_name="номер дома"
     )
-    country = models.CharField(max_length=50,
-        unique=False,
-        verbose_name="страна"
-    )
-    city = models.CharField(max_length=50,
-        unique=False,
-        verbose_name="город"
-    )
-    street = models.CharField(max_length=50,
-        unique=False,
-        verbose_name="улица"
-    )
-    house_number = models.CharField(max_length=10,
-        unique=False,
-        verbose_name="номер дома"
-    )
-    active = models.BooleanField(
-        verbose_name="контрагент активен"
-    )
+    active = models.BooleanField(verbose_name="контрагент активен")
 
     def __str__(self):
         return self.name

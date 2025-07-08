@@ -7,22 +7,51 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Counterparties',
+            name="Counterparties",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Название продукта', max_length=50, verbose_name='Название продукта')),
-                ('that_is_type', models.CharField(choices=[('factory', 'Завод'), ('retail', 'Розничная продажа'), ('PE', 'ИП')], default='PE', max_length=7, verbose_name='Иерархия')),
-                ('email', models.CharField(max_length=150, verbose_name='e-mail')),
-                ('country', models.CharField(max_length=50, verbose_name='страна')),
-                ('city', models.CharField(max_length=50, verbose_name='город')),
-                ('street', models.CharField(max_length=50, verbose_name='улица')),
-                ('house_number', models.CharField(max_length=10, verbose_name='номер дома')),
-                ('active', models.BooleanField(verbose_name='контрагент активен')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Название продукта",
+                        max_length=50,
+                        verbose_name="Название продукта",
+                    ),
+                ),
+                (
+                    "that_is_type",
+                    models.CharField(
+                        choices=[
+                            ("factory", "Завод"),
+                            ("retail", "Розничная продажа"),
+                            ("PE", "ИП"),
+                        ],
+                        default="PE",
+                        max_length=7,
+                        verbose_name="Иерархия",
+                    ),
+                ),
+                ("email", models.CharField(max_length=150, verbose_name="e-mail")),
+                ("country", models.CharField(max_length=50, verbose_name="страна")),
+                ("city", models.CharField(max_length=50, verbose_name="город")),
+                ("street", models.CharField(max_length=50, verbose_name="улица")),
+                (
+                    "house_number",
+                    models.CharField(max_length=10, verbose_name="номер дома"),
+                ),
+                ("active", models.BooleanField(verbose_name="контрагент активен")),
             ],
         ),
     ]

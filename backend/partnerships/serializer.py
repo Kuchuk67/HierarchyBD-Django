@@ -1,13 +1,16 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from partnerships.models import Partnerships
-from counterparties.models import Counterparties
-from products.serializer import ProductsSerializer
-from rest_framework import serializers
-from drf_yasg.utils import swagger_serializer_method
 # class ProductSerializer
 from decimal import Decimal
-#from validators import SupplierValidator
+
+from drf_yasg.utils import swagger_serializer_method
+from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+
+from counterparties.models import Counterparties
+
+# from validators import SupplierValidator
 from partnerships import validators
+from partnerships.models import Partnerships
+from products.serializer import ProductsSerializer
 
 
 class MoneyField(serializers.Field):
@@ -17,22 +20,24 @@ class MoneyField(serializers.Field):
 
     def to_representation(self, value):
         # Представление: копейки → рубли (Decimal for precision)
-        return (Decimal(value) / 100).quantize(Decimal('0.01'))
+        if value:
+            return (Decimal(value) / 100).quantize(Decimal("0.01"))
 
     def to_internal_value(self, data):
         # При приёме данных (если поддерживаете запись)
         # ожидаем рубли, конвертим в копейки
-        try:
-            amount = Decimal(data)
-        except (TypeError, ValueError):
-            raise serializers.ValidationError("Некорректная цена")
-        return int((amount * 100).quantize(Decimal('1')))  
-    
+        if data:
+            try:
+                amount = Decimal(data)
+            except (TypeError, ValueError):
+                raise serializers.ValidationError("Некорректная цена")
+            return int((amount * 100).quantize(Decimal("1")))
+
 
 class CounterpartySerializer(ModelSerializer):
     class Meta:
         model = Counterparties
-        fields =  [
+        fields = [
             "id",
             "name",
             "that_is_type",
@@ -65,78 +70,59 @@ class PartnershipsListSerializer(ModelSerializer):
                 "active": obj.supplier.person.active,
             }
         return None
-    
-    debt_rub = MoneyField(source='debt')
+
+    debt_rub = MoneyField(source="debt")
 
     class Meta:
         model = Partnerships
-        fields = [
-            "id",
-            "debt_rub",
-            "data_create",
-            "person",
-            "supplier",
-            "products"
-         ]
-        
+        fields = ["id", "debt_rub", "data_create", "person", "supplier", "products"]
+
 
 class PartnershipsSerializer(ModelSerializer):
-    debt_rub = MoneyField(source='debt')
-    
+    debt_rub = MoneyField(source="debt")
+
     class Meta:
         model = Partnerships
-        
-        fields = [
-            "id",
-            "debt_rub",
-            "data_create",
-            "person",
-            "supplier",
-            "products"
-         ]
-    
+
+        fields = ["id", "debt_rub", "data_create", "person", "supplier", "products"]
+
     def validate(self, data):
         supplier = data.get("supplier")
         products = data.get("products", [])
-        debt = data.get("debt_rub")
+        debt = data.get("debt")
+
+        # print("+++++",debt, supplier, products)
 
         if supplier is None and (len(products)) > 0:
-            raise serializers.ValidationError({
-                "supplier": "Укажите поставщика, если задан продукт."
-            })
+            raise serializers.ValidationError(
+                {"supplier": "If there is no supplier - no products"}
+            )
 
-        if supplier is None and (not debt  or debt > 0):
-            raise serializers.ValidationError({
-                "debt_rub": "If there is no supplier - no debt"
-            })
+        if supplier is None and (debt is not None and debt > 0):
+            raise serializers.ValidationError(
+                {"debt_rub": "If there is no supplier - no debt"}
+            )
         return data
-    '''def validate_debt_rub(self, value):  
-        """
-        если нет поставщика - нет продуктов
-        """
-        if not self.initial_data["supplier"] and self.initial_data["debt_rub"]>0:  
-            raise serializers.ValidationError("If there is no supplier - no debt")  
-        return value  '''
-    
+
 
 class PartnershipsUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = Partnerships
-        fields = [
-            "supplier",
-            "products"
-         ]
+        fields = ["supplier", "products"]
+
     def validate(self, data):
         # Новое значение supplier (может быть None или не передано)
-        new_supplier = data.get("supplier", self.instance.supplier if self.instance else None)
+        new_supplier = data.get(
+            "supplier", self.instance.supplier if self.instance else None
+        )
         # Новое значение products (может быть пустым или не передано)
-        new_products = data.get("products", self.instance.products.all() if self.instance else [])
-        print("******", new_supplier, new_products)
+        new_products = data.get(
+            "products", self.instance.products.all() if self.instance else []
+        )
 
         if new_supplier is None and len(new_products) > 0:
-            raise serializers.ValidationError({
-                "supplier": "Укажите поставщика, если задан продукт."
-            })
+            raise serializers.ValidationError(
+                {"supplier": "If there is no supplier - no products"}
+            )
         return data
-    
