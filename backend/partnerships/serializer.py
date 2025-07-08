@@ -1,14 +1,7 @@
-# class ProductSerializer
 from decimal import Decimal
-
-from drf_yasg.utils import swagger_serializer_method
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-
 from counterparties.models import Counterparties
-
-# from validators import SupplierValidator
-from partnerships import validators
 from partnerships.models import Partnerships
 from products.serializer import ProductsSerializer
 
@@ -19,13 +12,12 @@ class MoneyField(serializers.Field):
     """
 
     def to_representation(self, value):
-        # Представление: копейки → рубли (Decimal for precision)
+        # Представление: копейки в рубли
         if value:
             return (Decimal(value) / 100).quantize(Decimal("0.01"))
 
     def to_internal_value(self, data):
-        # При приёме данных (если поддерживаете запись)
-        # ожидаем рубли, конвертим в копейки
+        # При приёме данных, конвертим в копейки
         if data:
             try:
                 amount = Decimal(data)

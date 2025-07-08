@@ -1,5 +1,4 @@
 from django.db import models
-
 from counterparties.models import Counterparties
 from products.models import Products
 

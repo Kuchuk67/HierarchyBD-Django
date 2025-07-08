@@ -1,11 +1,9 @@
 from decimal import Decimal
-
 from django import forms
 from django.contrib import admin
-from django.urls import reverse
-
 from partnerships.models import Partnerships
-from users.models import CustomUser
+from django.urls import reverse
+from django.utils.html import format_html
 
 
 class PartnershipsAdminForm(forms.ModelForm):
@@ -23,7 +21,7 @@ class PartnershipsAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # При редактировании делим копейки на 100 → рубли
+        # При редактировании делим копейки на 100
         if self.instance and self.instance.pk is not None:
             # Перекладываем сконвертированное value в initial
             self.initial["debt"] = (Decimal(self.instance.debt) / 100).quantize(
@@ -31,7 +29,7 @@ class PartnershipsAdminForm(forms.ModelForm):
             )
 
     def clean_debt(self):
-        # При сохранении умножаем рубли на 100 и возвращаем копейки
+        # При сохранении умножаем рубли на 100
         debt_rub = self.cleaned_data.get("debt") or Decimal("0.00")
         return int((debt_rub * 100).quantize(Decimal("1")))
 
@@ -58,11 +56,11 @@ class Partnerships(admin.ModelAdmin):
 
     def get_supplier_name(self, obj):
         if obj.supplier:
-            from django.urls import reverse
-            from django.utils.html import format_html
-
             url = reverse(
-                f"admin:{obj.supplier.person._meta.app_label}_{obj.supplier.person._meta.model_name}_change",
+                (
+                    f"admin:{obj.supplier.person._meta.app_label}"
+                    f"_{obj.supplier.person._meta.model_name}_change"
+                ),
                 args=(obj.supplier.person.id,),
             )
             return format_html('<a href="{}">{}</a>', url, obj.supplier.person.name)
@@ -85,15 +83,3 @@ class Partnerships(admin.ModelAdmin):
     list_filter = ("person__city",)
 
     actions = [clear_debt]
-
-
-'''@admin.register(Partnerships)
-class PartnershipsAdmin(admin.ModelAdmin):
-    form = PartnershipsAdminForm
-    list_display = ('person', 'debt_display', 'data_create',)
-    # ... другие настройки, например list_filter, search_fields и т.п.
-
-    @admin.display(description="Долг (руб.)")
-    def debt_display(self, obj):
-        # Для списка делим копейки на 100 и форматируем
-        return f"{Decimal(obj.debt) / 100:.2f}"'''

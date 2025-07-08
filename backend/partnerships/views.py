@@ -1,8 +1,5 @@
 from django.db.models.deletion import RestrictedError
-from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
-from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -10,12 +7,9 @@ from rest_framework.mixins import (
     RetrieveModelMixin,
     UpdateModelMixin,
 )
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ModelViewSet, ViewSet
+from rest_framework.viewsets import GenericViewSet
 
-from counterparties.models import Counterparties
-from counterparties.serializer import CounterpartiesSerializer
 from partnerships.models import Partnerships
 from partnerships.serializer import (
     PartnershipsListSerializer,
@@ -44,10 +38,13 @@ class PartnershipsViewsSet(
         instance = self.get_object()
         try:
             self.perform_destroy(instance)
-        except RestrictedError as e:
+        except RestrictedError:
             return Response(
                 {
-                    "error": "The object cannot be deleted because other records is linked to it."
+                    "error": (
+                        "The object cannot be deleted "
+                        "because other records is linked to it."
+                    )
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )

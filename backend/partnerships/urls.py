@@ -1,8 +1,5 @@
 from django.urls import include, path
 from rest_framework import routers
-from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
 from partnerships.views import PartnershipsViewsSet
 
 router = routers.SimpleRouter(

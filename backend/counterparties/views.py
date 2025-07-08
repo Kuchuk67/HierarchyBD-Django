@@ -1,13 +1,8 @@
-# from users.permissions import HasAPIGroupPermission
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
-
-# from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, ViewSet
-
+from rest_framework.viewsets import ModelViewSet
 from counterparties.models import Counterparties
 from counterparties.serializer import CounterpartiesSerializer
 
