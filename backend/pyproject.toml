@@ -34,6 +34,8 @@ isort = "^6.0.1"
 black = "^25.1.0"
 mypy = "^1.16.1"
 flake8 = "^7.3.0"
+django-stubs = "^5.2.1"
+djangorestframework-stubs = "^3.16.0"
 
 [tool.black]
 # Файлы, которые не нужно форматировать
@@ -57,4 +59,4 @@ exclude = '''
 disallow_untyped_defs = true
 no_implicit_optional = true
 warn_return_any = true
-exclude = '.venv'
+exclude = '.venv|migrations|tests'

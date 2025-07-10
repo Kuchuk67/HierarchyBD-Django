@@ -5,7 +5,7 @@ from counterparties.models import Counterparties
 
 # Register your models here.
 @admin.register(Counterparties)
-class Counterparties(admin.ModelAdmin):
+class CounterpartiesAdmin(admin.ModelAdmin):
     list_display = ("name", "that_is_type", "country", "city", "email")
     list_filter = (
         "country",

@@ -1,4 +1,4 @@
-from rest_framework import serializers
+'''from rest_framework import serializers
 
 
 class SupplierValidator:
@@ -12,7 +12,7 @@ class SupplierValidator:
         self.supplier = supplier
         self.products = products
 
-    def __call__(self, attrs, serializer_field):
+    def __call__(self, attrs, serializer_field) -> None:
         """
         Проверка корректности
         "supplier",
@@ -25,3 +25,4 @@ class SupplierValidator:
             raise serializers.ValidationError(
                 "If there is no supplier - there are no products"
             )
+'''

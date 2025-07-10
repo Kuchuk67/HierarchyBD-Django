@@ -11,12 +11,13 @@ class MoneyField(serializers.Field):
     Поле для отображения цены, хранимой в копейках, в рублях.
     """
 
-    def to_representation(self, value):
+    def to_representation(self, value: int) -> Decimal:
         # Представление: копейки в рубли
         if value:
             return (Decimal(value) / 100).quantize(Decimal("0.01"))
+        return Decimal("0.00")
 
-    def to_internal_value(self, data):
+    def to_internal_value(self, data: str) -> int:
         # При приёме данных, конвертим в копейки
         if data:
             try:
@@ -24,6 +25,7 @@ class MoneyField(serializers.Field):
             except (TypeError, ValueError):
                 raise serializers.ValidationError("Некорректная цена")
             return int((amount * 100).quantize(Decimal("1")))
+        return 0
 
 
 class CounterpartySerializer(ModelSerializer):
@@ -48,7 +50,8 @@ class PartnershipsListSerializer(ModelSerializer):
     person = CounterpartySerializer(read_only=True)
     supplier = SerializerMethodField()
 
-    def get_supplier(self, obj):
+    def get_supplier(self, obj: Partnerships) -> dict | None:
+        assert isinstance(obj.person, Counterparties)
         if obj.supplier:
             return {
                 "id": obj.supplier.id,
@@ -78,7 +81,7 @@ class PartnershipsSerializer(ModelSerializer):
 
         fields = ["id", "debt_rub", "data_create", "person", "supplier", "products"]
 
-    def validate(self, data):
+    def validate(self, data: dict) -> dict:
         supplier = data.get("supplier")
         products = data.get("products", [])
         debt = data.get("debt")
@@ -103,18 +106,28 @@ class PartnershipsUpdateSerializer(ModelSerializer):
         model = Partnerships
         fields = ["supplier", "products"]
 
-    def validate(self, data):
-        # Новое значение supplier (может быть None или не передано)
-        new_supplier = data.get(
-            "supplier", self.instance.supplier if self.instance else None
-        )
-        # Новое значение products (может быть пустым или не передано)
-        new_products = data.get(
-            "products", self.instance.products.all() if self.instance else []
-        )
 
-        if new_supplier is None and len(new_products) > 0:
-            raise serializers.ValidationError(
-                {"supplier": "If there is no supplier - no products"}
-            )
+    def validate(self, data: dict) -> dict:
+        # Новое значение supplier (может быть None или не передано)
+        new_supplier = data.get("supplier", None)
+        if new_supplier is None and self.instance:
+            assert isinstance(self.instance, Partnerships)
+            new_supplier = self.instance.supplier
+        '''new_supplier = data.get(
+            "supplier", self.instance.supplier if self.instance else None
+        )'''
+        # Новое значение products (может быть пустым или не передано)
+        '''new_products = data.get(
+            "products", self.instance.products.all() if self.instance else []
+        )'''
+        new_products = data.get("products", None)
+        if new_products is None and self.instance:
+            assert isinstance(self.instance, Partnerships)
+            new_products = list(self.instance.products.all()) 
+
+        if new_products:
+            if new_supplier is None and len(new_products) > 0:
+                raise serializers.ValidationError(
+                    {"supplier": "If there is no supplier - no products"}
+                )   
         return data

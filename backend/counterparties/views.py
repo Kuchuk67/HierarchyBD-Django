@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from counterparties.models import Counterparties
 from counterparties.serializer import CounterpartiesSerializer
-
+from rest_framework.request import Request
+from typing import Any
 
 class CounterpartiesViewsSet(ModelViewSet):
     """
@@ -15,7 +16,7 @@ class CounterpartiesViewsSet(ModelViewSet):
     queryset = Counterparties.objects.all()
     serializer_class = CounterpartiesSerializer
 
-    def destroy(self, request, *args, **kwargs):
+    def destroy(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """
         Не будем удалять запись, помечаем не активной
         """
@@ -30,7 +31,7 @@ class CounterpartiesViewsSet(ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def list(self, request, deactive=False, *args, **kwargs):
+    def list(self, request: Request, deactive: bool=False, *args: Any, **kwargs: Any) -> Response:
         """
         При выводе списка отображаем только активных контрагентов
         """
@@ -63,7 +64,7 @@ class CounterpartiesViewsSet(ModelViewSet):
         responses=CounterpartiesSerializer(many=True),
     )
     @action(detail=False, methods=["get"], url_path="deactive")
-    def deactive(self, request):
+    def deactive(self, request: Request) -> Response:
         """
         Выводит список не активных (удаленных) контрагентов
         """

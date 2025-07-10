@@ -8,6 +8,7 @@ from rest_framework.mixins import (
     UpdateModelMixin,
 )
 from rest_framework.response import Response
+from rest_framework.request import  Request
 from rest_framework.viewsets import GenericViewSet
 
 from partnerships.models import Partnerships
@@ -16,7 +17,9 @@ from partnerships.serializer import (
     PartnershipsSerializer,
     PartnershipsUpdateSerializer,
 )
-
+from typing import Any
+from typing import Type
+from rest_framework.serializers import BaseSerializer
 
 class PartnershipsViewsSet(
     ListModelMixin,
@@ -30,7 +33,7 @@ class PartnershipsViewsSet(
     Представление для продукции
     """
 
-    def destroy(self, request, *args, **kwargs):
+    def destroy(self, request:  Request, *args: Any, **kwargs: Any) -> Response:
         """
         Обработка ошибки удавения связанной записи
         или удаляем запись
@@ -52,7 +55,7 @@ class PartnershipsViewsSet(
 
     queryset = Partnerships.objects.all()
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> Type[BaseSerializer]:
 
         if self.action in ["list", "retrieve"]:
             return PartnershipsListSerializer

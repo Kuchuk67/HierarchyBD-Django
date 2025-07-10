@@ -4,11 +4,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from counterparties.models import Counterparties
 from users.models import CustomUser
+from typing import Any
 
 
 class Command(BaseCommand):
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args: Any, **kwargs: Any) -> None:
 
         # Создаем новую группу
         new_group, created = Group.objects.get_or_create(name="API_access")
@@ -33,7 +34,7 @@ class Command(BaseCommand):
             email=email,
         )
         if not user:
-            user = CustomUser._default_manager.create(
+            user_new: CustomUser = CustomUser._default_manager.create(
                 email=email,
             )
             print("Enter password: ")
@@ -43,12 +44,12 @@ class Command(BaseCommand):
             # Пароль не отображается при вводе
             password2 = getpass()
             if password == password2:
-                user.set_password(password)
-                user.is_active = True
-                user.is_staff = True
-                user.is_superuser = True
-                user.groups.add(new_group)
-                user.save()
+                user_new.set_password(password)
+                user_new.is_active = True
+                user_new.is_staff = True
+                user_new.is_superuser = True
+                user_new.groups.add(new_group)
+                user_new.save()
                 print("Admin added")
             else:
                 print("Рasswords do not match")
