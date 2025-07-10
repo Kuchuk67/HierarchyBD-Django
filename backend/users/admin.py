@@ -5,6 +5,6 @@ from users.models import CustomUser
 
 # Register your models here.
 @admin.register(CustomUser)
-class CustomUser(admin.ModelAdmin):
+class CustomUserAdmin(admin.ModelAdmin):
     list_display = ("email",)
     search_fields = ("email",)

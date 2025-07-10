@@ -6,7 +6,6 @@ from drf_yasg.views import get_schema_view
 
 from config.settings import API_VERSION
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="API Documentation",
@@ -21,7 +20,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path(API_VERSION + "schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         API_VERSION + "swagger/",
@@ -29,7 +28,7 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path(API_VERSION, include("users.urls", namespace="users")),
-   # path(API_VERSION, include('partnerships.urls', namespace='partnerships')),
-   path(API_VERSION, include('products.urls', namespace='products')),
-   path(API_VERSION, include('counterparties.urls', namespace='partner')),
+    path(API_VERSION, include("partnerships.urls", namespace="orders")),
+    path(API_VERSION, include("products.urls", namespace="products")),
+    path(API_VERSION, include("counterparties.urls", namespace="partner")),
 ]

@@ -1,0 +1,32 @@
+[
+{
+    "model": "partnerships.partnerships",
+    "pk": 4,
+    "fields": {
+        "person": 1,
+        "supplier": null,
+        "debt": "",
+        "data_create": "2024-10-10T07:10:00Z"
+    }
+},
+{
+    "model": "partnerships.partnerships",
+    "pk": 5,
+    "fields": {
+        "person": 5,
+        "supplier": 4,
+        "debt": "",
+        "data_create": "2024-10-10T07:10:00Z"
+    }
+},
+{
+    "model": "partnerships.partnerships",
+    "pk": 7,
+    "fields": {
+        "person": 3,
+        "supplier": 4,
+        "debt": "",
+        "data_create": "2024-10-10T07:10:00Z"
+    }
+}
+]

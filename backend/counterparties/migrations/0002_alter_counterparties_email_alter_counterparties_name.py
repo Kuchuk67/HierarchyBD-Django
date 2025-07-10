@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('counterparties', '0001_initial'),
+        ("counterparties", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='counterparties',
-            name='email',
-            field=models.CharField(max_length=150, unique=True, verbose_name='e-mail'),
+            model_name="counterparties",
+            name="email",
+            field=models.CharField(max_length=150, unique=True, verbose_name="e-mail"),
         ),
         migrations.AlterField(
-            model_name='counterparties',
-            name='name',
-            field=models.CharField(help_text='Название контрагента', max_length=50, verbose_name='Название контрагента'),
+            model_name="counterparties",
+            name="name",
+            field=models.CharField(
+                help_text="Название контрагента",
+                max_length=50,
+                verbose_name="Название контрагента",
+            ),
         ),
     ]

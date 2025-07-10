@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Counterparties(models.Model):
-    name = models.CharField(
+    name:models.CharField = models.CharField(
         max_length=50,
         null=False,
         blank=False,
@@ -15,32 +15,40 @@ class Counterparties(models.Model):
         ("retail", "Розничная продажа"),
         ("PE", "ИП"),
     ]
-    that_is_type = models.CharField(
+    that_is_type: models.CharField = models.CharField(
         max_length=7,
         choices=STATUS_CHOICES,
         default="PE",
         verbose_name="Иерархия"
     )
-    email = models.CharField(max_length=150,
+    email: models.CharField = models.CharField(
+        max_length=150,
         unique=True,
         verbose_name="e-mail"
-    )
-    country = models.CharField(max_length=50,
+        )
+    country: models.CharField = models.CharField(
+        max_length=50,
         unique=False,
         verbose_name="страна"
-    )
-    city = models.CharField(max_length=50,
+        )
+    city: models.CharField = models.CharField(
+        max_length=50,
         unique=False,
         verbose_name="город"
-    )
-    street = models.CharField(max_length=50,
+        )
+    street: models.CharField = models.CharField(
+        max_length=50,
         unique=False,
         verbose_name="улица"
-    )
-    house_number = models.CharField(max_length=10,
+        )
+    house_number: models.CharField = models.CharField(
+        max_length=10,
         unique=False,
         verbose_name="номер дома"
     )
-    active = models.BooleanField(
+    active: models.BooleanField = models.BooleanField(
         verbose_name="контрагент активен"
-    )
+        )
+
+    def __str__(self) -> str:
+        return f'{self.name}'

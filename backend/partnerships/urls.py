@@ -1,13 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
-from products.views import ProductsViewsSet
+from partnerships.views import PartnershipsViewsSet
 
 router = routers.SimpleRouter(
     trailing_slash=False,
 )
-router.register(prefix=r"products", viewset=ProductsViewsSet, basename="products")
+router.register(prefix=r"orders", viewset=PartnershipsViewsSet, basename="orders")
 
-app_name = "products"
+app_name = "orders"
 
 urlpatterns = [
     path("", include(router.urls)),

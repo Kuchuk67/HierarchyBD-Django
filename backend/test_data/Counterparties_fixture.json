@@ -143,12 +143,12 @@
     "model": "counterparties.counterparties",
     "pk": 11,
     "fields": {
-        "name": "UkrProm LLC",
+        "name": "Prom LLC",
         "that_is_type": "factory",
-        "email": "contact@ukrprom.ua",
-        "country": "Украина",
-        "city": "Киев",
-        "street": "Хрещатик",
+        "email": "contact@prom.ru",
+        "country": "Россия",
+        "city": "Смоленск",
+        "street": "Ленина",
         "house_number": "3",
         "active": true
     }
