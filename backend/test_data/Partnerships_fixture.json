@@ -1,32 +1,77 @@
 [
 {
     "model": "partnerships.partnerships",
-    "pk": 4,
+    "pk": 1,
     "fields": {
         "person": 1,
         "supplier": null,
-        "debt": "",
-        "data_create": "2024-10-10T07:10:00Z"
+        "debt": 2147483647,
+        "data_create": "2025-07-07T12:11:36.088Z",
+        "products": []
+    }
+},
+{
+    "model": "partnerships.partnerships",
+    "pk": 2,
+    "fields": {
+        "person": 1,
+        "supplier": null,
+        "debt": 0,
+        "data_create": "2025-07-07T12:14:16.800Z",
+        "products": []
+    }
+},
+{
+    "model": "partnerships.partnerships",
+    "pk": 3,
+    "fields": {
+        "person": 2,
+        "supplier": 1,
+        "debt": 2147483647,
+        "data_create": "2025-07-07T12:18:56.411Z",
+        "products": [
+            3,
+            6
+        ]
+    }
+},
+{
+    "model": "partnerships.partnerships",
+    "pk": 4,
+    "fields": {
+        "person": 4,
+        "supplier": null,
+        "debt": 0,
+        "data_create": "2025-07-07T13:49:03.232Z",
+        "products": []
     }
 },
 {
     "model": "partnerships.partnerships",
     "pk": 5,
     "fields": {
-        "person": 5,
-        "supplier": 4,
-        "debt": "",
-        "data_create": "2024-10-10T07:10:00Z"
+        "person": 4,
+        "supplier": 1,
+        "debt": 0,
+        "data_create": "2025-07-08T06:43:27.349Z",
+        "products": [
+            1,
+            3
+        ]
     }
 },
 {
     "model": "partnerships.partnerships",
-    "pk": 7,
+    "pk": 6,
     "fields": {
-        "person": 3,
-        "supplier": 4,
-        "debt": "",
-        "data_create": "2024-10-10T07:10:00Z"
+        "person": 4,
+        "supplier": 1,
+        "debt": 1505078,
+        "data_create": "2025-07-08T06:43:32.406Z",
+        "products": [
+            1,
+            3
+        ]
     }
 }
 ]
