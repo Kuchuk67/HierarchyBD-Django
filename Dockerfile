@@ -13,7 +13,8 @@ RUN poetry install --no-root
 
 COPY . .
 
-RUN mkdir ./static
+#RUN cd backend
+#RUN mkdir staticfiles
 
 #COPY ./start /start
 ##RUN sed -i 's/\r$//g' /start

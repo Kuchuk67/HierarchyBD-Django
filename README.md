@@ -14,6 +14,11 @@ python manage.py loaddata test_data/Partnerships_fixture.json
 python -Xutf8 manage.py dumpdata partnerships.Partnerships --output test_data/Partnerships_fixture.json --indent 4
     python -Xutf8 manage.py dumpdata counterparties.Counterparties --output test_data/Counterparties_fixture.json --indent 4
 
+
+
+email = "admin@example.com"
+password("54321")
+
 ```
 select cc.name, cc.that_is_type, ps.*, cc2.name, cc2.that_is_type
 from partnerships_partnerships as ps 
