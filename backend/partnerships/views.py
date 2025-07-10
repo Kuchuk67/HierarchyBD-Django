@@ -20,6 +20,8 @@ from partnerships.serializer import (
 from typing import Any
 from typing import Type
 from rest_framework.serializers import BaseSerializer
+from rest_framework.permissions import IsAuthenticated
+from users.permissions import HasAPIGroupPermission
 
 class PartnershipsViewsSet(
     ListModelMixin,
@@ -32,6 +34,7 @@ class PartnershipsViewsSet(
     """
     Представление для продукции
     """
+    permission_classes = [IsAuthenticated, HasAPIGroupPermission]
 
     def destroy(self, request:  Request, *args: Any, **kwargs: Any) -> Response:
         """

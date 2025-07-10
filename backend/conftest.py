@@ -5,12 +5,39 @@ from counterparties.models import Counterparties
 from partnerships.models import Partnerships
 from products.models import Products
 from users.models import CustomUser
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import Group, Permission
 
 @pytest.fixture
 def admin_user(db):
+    # Создаем новую группу
+    new_group, created = Group.objects.get_or_create(name="API_access")
+
+    if created:
+        ct = ContentType.objects.get_for_model(Counterparties)
+        permission = Permission.objects.create(
+                codename="API_access",
+                name="Имеет доступ к API",
+                content_type=ct,
+        )
+        new_group.permissions.add(permission)
+
     user = CustomUser.objects.create(
         email="user@user.com",
+        is_staff=True,
+        is_superuser=True,
+    )
+    user.set_password("123456789")
+    user.groups.add(new_group)
+    user.save()
+
+    return user
+
+
+@pytest.fixture
+def admin_user_not_group(db):
+    user = CustomUser.objects.create(
+        email="user2@user.com",
         is_staff=True,
         is_superuser=True,
     )
@@ -18,6 +45,13 @@ def admin_user(db):
     user.save()
 
     return user
+
+
+@pytest.fixture
+def api_client_not_group(admin_user_not_group):
+    client = APIClient()
+    client.force_authenticate(user=admin_user_not_group)
+    return client
 
 
 @pytest.fixture

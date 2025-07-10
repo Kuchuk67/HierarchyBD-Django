@@ -7,12 +7,14 @@ from counterparties.models import Counterparties
 from counterparties.serializer import CounterpartiesSerializer
 from rest_framework.request import Request
 from typing import Any
+from rest_framework.permissions import IsAuthenticated
+from users.permissions import HasAPIGroupPermission
 
 class CounterpartiesViewsSet(ModelViewSet):
     """
     Представление для контрагентов
     """
-
+    permission_classes = [IsAuthenticated, HasAPIGroupPermission]
     queryset = Counterparties.objects.all()
     serializer_class = CounterpartiesSerializer
 

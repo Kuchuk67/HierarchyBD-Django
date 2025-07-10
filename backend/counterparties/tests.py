@@ -74,3 +74,34 @@ def test_counterparties_del_or_get(
     response = api_client.get(path=f"/api/v1/partner/{id_product}")
     assert response.status_code == status.HTTP_200_OK
     assert response.data["active"] == False
+
+
+def test_not_accesse(api_client_not_group, create_test_data):
+    """
+    Проверка доступа к API пользователя 
+    не выходищего в группу 'API_access' 
+    """
+    response = api_client_not_group.get(
+        path=f"/api/v1/partner")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.post(
+        path=f"/api/v1/partner", data='{}', format="json"
+    )
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.delete(
+        path=f"/api/v1/partner/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.patch(
+        path=f"/api/v1/partner/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.put(
+        path=f"/api/v1/orders/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.get(
+        path=f"/api/v1/orders/deactive")
+    assert response.status_code == status.HTTP_403_FORBIDDEN

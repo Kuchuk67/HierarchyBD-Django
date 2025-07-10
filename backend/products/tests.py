@@ -63,3 +63,30 @@ def test_put(api_client, create_test_data, product_one, product_put):
     response = api_client.get(path=f"/api/v1/products/{id_product}")
     assert response.status_code == status.HTTP_200_OK
     assert response.data == rezult
+
+
+def test_not_accesse(api_client_not_group, create_test_data):
+    """
+    Проверка доступа к API пользователя 
+    не выходищего в группу 'API_access' 
+    """
+    response = api_client_not_group.get(
+        path=f"/api/v1/products")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.post(
+        path=f"/api/v1/products", data='{}', format="json"
+    )
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.delete(
+        path=f"/api/v1/products/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.patch(
+        path=f"/api/v1/products/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.put(
+        path=f"/api/v1/products/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN

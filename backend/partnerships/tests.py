@@ -119,3 +119,30 @@ def test_partnerships_update_error(api_client, create_test_data):
         path=f"/api/v1/orders/{response.data['id']}", data=data_w, format="json"
     )
     assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+def test_not_accesse(api_client_not_group, create_test_data):
+    """
+    Проверка доступа к API пользователя 
+    не выходищего в группу 'API_access' 
+    """
+    response = api_client_not_group.get(
+        path=f"/api/v1/orders")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.post(
+        path=f"/api/v1/orders", data='{}', format="json"
+    )
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.delete(
+        path=f"/api/v1/orders/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.patch(
+        path=f"/api/v1/orders/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+    response = api_client_not_group.put(
+        path=f"/api/v1/orders/1000")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
