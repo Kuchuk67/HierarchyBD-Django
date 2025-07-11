@@ -208,4 +208,4 @@ __marimo__/
 
 .flake8
 
-static/admin
+static/admin/

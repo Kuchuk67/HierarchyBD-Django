@@ -1,5 +1,25 @@
 from rest_framework import status
+from .serializer import MoneyField
+from decimal import Decimal
 
+
+def test_money_field():
+    """
+    Тест - функции перевода суммы 
+    из копеек в рубли и обратно
+    """
+    test_class = MoneyField()
+    assert test_class.to_representation(1245) == Decimal('12.45')
+    assert test_class.to_representation(4500) == Decimal('45.00')
+    assert test_class.to_representation(45750) == Decimal('457.50')
+    assert test_class.to_representation(5) == Decimal('0.05')
+
+    assert test_class.to_internal_value('12.45') == 1245
+    assert test_class.to_internal_value('45.00') == 4500
+    assert test_class.to_internal_value('457.50') == 45750
+    assert test_class.to_internal_value('0.05') == 5
+    assert test_class.to_internal_value('10') == 1000
+    assert test_class.to_internal_value('10.5') == 1050
 
 def test_partnerships_list(api_client, create_test_data):
     """
@@ -8,6 +28,14 @@ def test_partnerships_list(api_client, create_test_data):
     response = api_client.get("/api/v1/orders")
     assert response.status_code == status.HTTP_200_OK
     assert len(response.data["results"]) == 2
+
+def test_partnerships_list_sort(api_client, create_test_data):
+    """
+    Тест - выводит заказы с сортировкой по стране Польша
+    """ 
+    response = api_client.get("/api/v1/orders?country=Польша")
+    assert response.status_code == status.HTTP_200_OK
+    assert len(response.data["results"]) == 1
 
 
 def test_partnerships_get_and_delete(api_client, create_test_data):
