@@ -13,7 +13,7 @@ from django.db.models.query import QuerySet
 class PartnershipsAdminForm(forms.ModelForm):
     # Заменяем поле debt, чтобы вводить/показывать в рублях
     debt = forms.DecimalField(
-        max_digits=12,
+        max_digits=14,
         decimal_places=2,
         label="Долг (руб.)",
         help_text="Введите сумму долга в рублях. В базе она хранится в копейках.",
