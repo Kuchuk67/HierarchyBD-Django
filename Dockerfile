@@ -13,11 +13,4 @@ RUN poetry install --no-root
 
 COPY . .
 
-#RUN cd backend
-#RUN mkdir staticfiles
-
-#COPY ./start /start
-##RUN sed -i 's/\r$//g' /start
-#RUN chmod +x /start
-
 EXPOSE 8000
