@@ -28,7 +28,7 @@ class Partnerships(models.Model):
         verbose_name="Список продуктов, ID продукта: 1, 2 , 6",
         help_text="ID продукта: 1, 2 , 6",
     )
-    debt: models.IntegerField = models.IntegerField(
+    debt: models.BigIntegerField = models.BigIntegerField(
         null=True, blank=True, default=0, verbose_name="Задолженность поставщику"
     )
     data_create: models.DateTimeField = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")

@@ -3,7 +3,8 @@ from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-
+from config import settings
+from django.conf.urls.static import static
 from config.settings import API_VERSION
 
 schema_view = get_schema_view(
@@ -32,3 +33,7 @@ urlpatterns = [
     path(API_VERSION, include("products.urls", namespace="products")),
     path(API_VERSION, include("counterparties.urls", namespace="partner")),
 ]
+
+if  settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

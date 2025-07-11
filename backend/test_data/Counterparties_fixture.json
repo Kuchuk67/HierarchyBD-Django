@@ -83,7 +83,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 7,
     "fields": {
@@ -97,7 +97,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 8,
     "fields": {
@@ -111,7 +111,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 9,
     "fields": {
@@ -125,7 +125,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 10,
     "fields": {
@@ -139,7 +139,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 11,
     "fields": {
@@ -153,7 +153,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 12,
     "fields": {
@@ -167,7 +167,7 @@
         "active": true
     }
 },
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 13,
     "fields": {
@@ -181,21 +181,7 @@
         "active": true
     }
 },
-    {
-    "model": "counterparties.counterparties",
-    "pk": 14,
-    "fields": {
-        "name": "Smart Factory S.A.",
-        "that_is_type": "factory",
-        "email": "contact@smartfactory.pl",
-        "country": "Польша",
-        "city": "Варшава",
-        "street": "Nowy Świat",
-        "house_number": "12",
-        "active": true
-    }
-},
-    {
+{
     "model": "counterparties.counterparties",
     "pk": 14,
     "fields": {

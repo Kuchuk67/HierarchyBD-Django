@@ -20,11 +20,11 @@ from dotenv import load_dotenv
 
 # Загрузка переменных из .env-файла
 load_dotenv()
-SQL_HOST = os.getenv("SQL_HOST")
-SQL_DATABASE = os.getenv("SQL_DATABASE")
-SQL_USER = os.getenv("SQL_USER")
-SQL_PASS = os.getenv("SQL_PASS")
-SQL_PORT = os.getenv("SQL_PORT")
+SQL_HOST = os.getenv("POSTGRES_HOST")
+SQL_DATABASE = os.getenv("POSTGRES_DB")
+SQL_USER = os.getenv("POSTGRES_USER")
+SQL_PASS = os.getenv("POSTGRES_PASSWORD")
+SQL_PORT = os.getenv("POSTGRES_PORT")
 MY_HOST = os.getenv("MY_HOST")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +38,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [MY_HOST]
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "drf_spectacular",
+    "django_filters",
     "users",
     "partnerships",
     "counterparties",
@@ -147,9 +148,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+STATIC_ROOT = BASE_DIR / "static"
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",                
+    # только папки с «сырой» статикой
+    # можно добавить другие, если нужно
+]
 
 # пути для хранения медиафайлов:
 MEDIA_URL = "/media/"
@@ -170,6 +176,9 @@ _page_paginator = "rest_framework.pagination.PageNumberPagination"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",

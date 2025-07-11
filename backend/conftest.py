@@ -100,7 +100,7 @@ def create_test_data(api_client):
         name="Smadddactory S.A.",
         that_is_type="PE",
         email="codddct@smartfactory.pl",
-        country="Польша",
+        country="ывава",
         city="Варшава",
         street="Nowy Świat",
         house_number=12,
